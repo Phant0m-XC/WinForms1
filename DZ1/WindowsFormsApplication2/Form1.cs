@@ -23,9 +23,9 @@ namespace WindowsFormsApplication2
             Random random = new Random();
             DialogResult result;
             bool goOn = true;
-            int count = 0;
             while (goOn)
             {
+                int count = 0;
                 do
                 {
                     count++;
