@@ -16,6 +16,14 @@ namespace WindowsFormsApplication5
         {
             InitializeComponent();
             this.MouseMove += Form1_MouseMove;
+            this.button1.MouseMove += Button1_MouseMove;
+        }
+
+        private void Button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Random random = new Random();
+            this.Controls[0].Location = new Point(random.Next(0, this.ClientSize.Width - this.Controls[0].Size.Width),
+                    random.Next(0, this.ClientSize.Height - this.Controls[0].Size.Height));
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
