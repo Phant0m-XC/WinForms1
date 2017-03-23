@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1
         public Form1()
         {
             InitializeComponent();
-            this.Resume.Click += Resume_Click;
+            Resume.Click += Resume_Click;
         }
 
         private void Resume_Click(object sender, EventArgs e)

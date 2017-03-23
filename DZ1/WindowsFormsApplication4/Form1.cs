@@ -18,9 +18,9 @@ namespace WindowsFormsApplication4
         public Form1()
         {
             InitializeComponent();
-            this.MouseDown += Form1_MouseDown;
-            this.MouseUp += Form1_MouseUp;
-            this.count = 0;
+            MouseDown += Form1_MouseDown;
+            MouseUp += Form1_MouseUp;
+            count = 0;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -43,8 +43,8 @@ namespace WindowsFormsApplication4
                     newForm.Name = count.ToString();
                     newForm.Text = count.ToString();
                     newForm.Size = new Size(Math.Abs(x - e.X), Math.Abs(y - e.Y));
-                    //newForm.MouseDoubleClick += this.NewForm_MouseDoubleClick;
-                    this.Controls.Add(newForm);
+                    newForm.MouseDoubleClick += NewForm_MouseDoubleClick;
+                    Controls.Add(newForm);
                     count++;
                 }
                 else
@@ -56,16 +56,16 @@ namespace WindowsFormsApplication4
         private void NewForm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             GroupBox temp = (GroupBox)sender;
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
                 temp.Dispose();
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
-                string nameControl = "\0";
-                for(int i = 0; i < Controls.Count; i++)
-                    if (e.X >= Controls[i].Location.X &&
-                        e.Y >= Controls[i].Location.Y &&
-                        e.X <= Controls[i].Location.X + Controls[i].Size.Width &&
-                        e.Y <= Controls[i].Location.Y + Controls[i].Size.Height)
+                string nameControl = "";
+                for (int i = 0; i < Controls.Count; i++)
+                    if (temp.Location.X + e.Location.X >= Controls[i].Location.X &&
+                        temp.Location.Y + e.Location.Y >= Controls[i].Location.Y &&
+                        temp.Location.X + e.Location.X <= Controls[i].Location.X + Controls[i].Size.Width &&
+                        temp.Location.Y + e.Location.Y <= Controls[i].Location.Y + Controls[i].Size.Height)
                         if (Controls[i].Text.CompareTo(nameControl) > 0)
                             temp = (GroupBox)Controls[i];
                 Text = "Площадь - " + (temp.Size.Height * temp.Size.Width) + " Координаты - " + temp.Location;

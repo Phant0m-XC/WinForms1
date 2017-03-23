@@ -81,8 +81,16 @@ namespace WindowsFormsApplication8
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            label12.Text = (Convert.ToDouble(label7.Text) + Convert.ToDouble(label10.Text)).ToString();
-            timer1.Start();
+            if (radioButton1.Checked)
+            {
+                label12.Text = (Convert.ToDouble(label7.Text) + Convert.ToDouble(label10.Text)).ToString();
+                timer1.Start();
+            }
+            else
+            {
+                label12.Text = (Convert.ToDouble(textBox2.Text) + Convert.ToDouble(label10.Text)).ToString();
+                timer1.Start();
+            }
         }
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)

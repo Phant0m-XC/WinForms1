@@ -15,7 +15,7 @@ namespace WindowsFormsApplication2
         public Form1()
         {
             InitializeComponent();
-            this.button1.Click += Button1_Click;
+            button1.Click += Button1_Click;
         }
 
         private void Button1_Click(object sender, EventArgs e)
