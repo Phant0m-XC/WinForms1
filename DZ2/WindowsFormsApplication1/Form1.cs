@@ -34,7 +34,7 @@ namespace WindowsFormsApplication1
                     file.Read(quant, 0, 1);
                     textBox1.Text += Encoding.Default.GetString(quant);
                     progressBar1.Value++;
-                    Thread.Sleep(1);
+                    //Thread.Sleep(1);
                 }
                 file.Close();
             }
