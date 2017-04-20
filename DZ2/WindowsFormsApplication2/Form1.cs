@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml;
+using System.Xml.XPath;
 
 namespace WindowsFormsApplication2
 {   
@@ -30,7 +32,7 @@ namespace WindowsFormsApplication2
             saveFileDialog1.ShowDialog();
             if (saveFileDialog1.FilterIndex == 1)
             {
-                using (FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.Truncate, FileAccess.Write))
                 {
                     StreamWriter sw = new StreamWriter(file);
                     for (int i = 0; i < listBox1.Items.Count; i++)
@@ -44,7 +46,26 @@ namespace WindowsFormsApplication2
             }
             if(saveFileDialog1.FilterIndex == 2)
             {
-                
+                using (FileStream file = new FileStream(saveFileDialog1.FileName, FileMode.Truncate, FileAccess.Write))
+                {
+                    XmlTextWriter writer = new XmlTextWriter(file, Encoding.Default);
+                    writer.Formatting = Formatting.Indented;
+                    writer.WriteStartDocument();
+                    writer.WriteStartElement("Persons");
+                    for (int i = 0; i < listBox1.Items.Count; i++)
+                    {
+                        string str = listBox1.Items[i].ToString();
+                        string[] temp = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        writer.WriteStartElement("Person");
+                        writer.WriteElementString("firstname", temp[0]);
+                        writer.WriteElementString("secondname", temp[1]);
+                        writer.WriteElementString("e-mail", temp[2]);
+                        writer.WriteElementString("phone", temp[3]);
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+                    writer.Close();
+                }
             }
         }
 
@@ -56,12 +77,34 @@ namespace WindowsFormsApplication2
                 using (FileStream file = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read))
                 {
                     StreamReader sr = new StreamReader(file);
-                    while ()
+                    listBox1.Items.Clear();
+                    while (!sr.EndOfStream)
                     {
                         string str = sr.ReadLine();
                         listBox1.Items.Add(str);
                     }
                     sr.Close();
+                }
+            }
+            if (openFileDialog1.FilterIndex == 2)
+            {
+                using (FileStream file = new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    string[] temp = new string[4];
+                    XPathDocument doc = new XPathDocument(file);
+                    XPathNavigator nav = doc.CreateNavigator();
+                    XPathNodeIterator iterator = nav.Select("//Persons/Person/*");
+                    listBox1.Items.Clear();
+                    while (iterator.MoveNext())
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            temp[i] = iterator.Current.Value;
+                            if (i != 3)
+                                iterator.MoveNext();
+                        }
+                        listBox1.Items.Add($"{temp[0]} {temp[1]} {temp[2]} {temp[3]}");
+                    }
                 }
             }
         }
