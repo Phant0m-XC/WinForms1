@@ -19,13 +19,8 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.ShowDialog();
-            textBox1.Text = folderBrowserDialog1.SelectedPath;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
+            Form2 form = new Form2();
+            form.Show();
         }
     }
 }
