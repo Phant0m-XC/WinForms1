@@ -36,8 +36,12 @@ namespace WindowsFormsApplication2
                     prod.Charactiristics = textBox2.Text;
                     prod.Description = textBox3.Text;
                     prod.Price = Convert.ToDouble(textBox4.Text);
+                    this.Close();
                 }
-                this.Close();
+                else
+                {
+                    MessageBox.Show("Одно или более полей не заполнено", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             catch
             {

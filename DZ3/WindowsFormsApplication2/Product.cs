@@ -19,5 +19,9 @@ namespace WindowsFormsApplication2
             Description = null;
             Price = 0;
         }
+        public override string ToString()
+        {
+            return $"{Name}, {Charactiristics}";
+        }
     }
 }
