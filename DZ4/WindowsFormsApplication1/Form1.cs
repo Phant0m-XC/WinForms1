@@ -252,5 +252,11 @@ namespace WindowsFormsApplication1
         {
             richTextBox1.Paste();
         }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.CanUndo)
+                richTextBox1.Undo();
+        }
     }
 }
