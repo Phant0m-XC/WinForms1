@@ -32,6 +32,7 @@ namespace Exam
 
         private void ListView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            DialogResult result;
             string[] str = new string[3];
             using(ProductListEntities db = new ProductListEntities())
             {
@@ -40,8 +41,28 @@ namespace Exam
                 str[1] = list.Price.ToString();
                 str[2] = list.Manufacturer.Name.ToString();
             }
-            Form2 form2 = new Form2(ref str);
-            form2.Show();
+            Form2 form2 = new Form2(str);
+            result = form2.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                using (ProductListEntities db = new ProductListEntities())
+                {
+                    var list = db.Product.Find(listView1.SelectedItems[0].Tag);
+                    list.Name = str[0];
+                    list.Price = Convert.ToInt32(str[1]);
+                    list.Manufacturer.Name = str[2];
+                    db.SaveChanges();
+                    listView1.Items.Clear();
+                    int index = 0;
+                    var list2 = db.Product.ToList();
+                    foreach (var element in list2)
+                    {
+                        listView1.Items.Add(new ListViewItem(element.Name));
+                        listView1.Items[index].Tag = element.IdProduct;
+                        listView1.Items[index++].SubItems.Add(element.Price.ToString());
+                    }
+                }
+            }
         }
     }
 }
