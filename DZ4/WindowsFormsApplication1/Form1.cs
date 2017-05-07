@@ -129,16 +129,18 @@ namespace WindowsFormsApplication1
             {
                 DialogResult result = saveFileDialog1.ShowDialog();
                 if (result == DialogResult.OK)
+                {
                     if (File.Exists(saveFileDialog1.FileName))
                         file = new FileStream(saveFileDialog1.FileName, FileMode.Truncate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     else
                         file = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-                if (file.CanSeek)
-                    file.Seek(0, SeekOrigin.Begin);
-                sWriter = new StreamWriter(file, Encoding.Default);
-                sWriter.Write(richTextBox1.Text);
-                sWriter.Flush();
-                this.Text = saveFileDialog1.FileName;
+                    if (file.CanSeek)
+                        file.Seek(0, SeekOrigin.Begin);
+                    sWriter = new StreamWriter(file, Encoding.Default);
+                    sWriter.Write(richTextBox1.Text);
+                    sWriter.Flush();
+                    this.Text = saveFileDialog1.FileName;
+                }
             }
         }
 
@@ -158,16 +160,18 @@ namespace WindowsFormsApplication1
             {
                 DialogResult result = saveFileDialog1.ShowDialog();
                 if (result == DialogResult.OK)
+                {
                     if (File.Exists(saveFileDialog1.FileName))
                         file = new FileStream(saveFileDialog1.FileName, FileMode.Truncate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     else
                         file = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-                if (file.CanSeek)
-                    file.Seek(0, SeekOrigin.Begin);
-                sWriter = new StreamWriter(file, Encoding.Default);
-                sWriter.Write(richTextBox1.Text);
-                sWriter.Flush();
-                this.Text = saveFileDialog1.FileName;
+                    if (file.CanSeek)
+                        file.Seek(0, SeekOrigin.Begin);
+                    sWriter = new StreamWriter(file, Encoding.Default);
+                    sWriter.Write(richTextBox1.Text);
+                    sWriter.Flush();
+                    this.Text = saveFileDialog1.FileName;
+                }
             }
         }
 
