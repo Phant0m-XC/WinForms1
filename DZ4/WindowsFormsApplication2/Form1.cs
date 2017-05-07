@@ -58,6 +58,25 @@ namespace WindowsFormsApplication2
                     this.Location.Y + listView1.Location.Y + e.Location.Y);
                 contextMenuStrip1.Show(point);
             }
+            else if (e.Button == MouseButtons.Left)
+            {
+                var senderList = (ListView)sender;
+                var clickedItem = senderList.HitTest(e.Location).Item;
+                toolStripStatusLabel2.Text = listView1.Items.Count.ToString();
+                FileInfo info = new FileInfo(((string)clickedItem.Tag).ToString());
+                if (File.Exists(((string)clickedItem.Tag).ToString()))
+                {
+                    toolStripStatusLabel4.Text = string.Format($"{Path.GetExtension(((string)clickedItem.Tag).ToString())} - файл");
+                    
+                    toolStripStatusLabel6.Text = info.Length.ToString();
+                }
+                else if (Directory.Exists(((string)clickedItem.Tag).ToString()))
+                {
+                    toolStripStatusLabel4.Text = "Папка";
+                    toolStripStatusLabel6.Text = "0";
+                }
+                toolStripStatusLabel8.Text = Directory.GetCreationTime(info.FullName).ToString();
+            }
         }
 
         private void ListView1_MouseDoubleClick(object sender, MouseEventArgs e)
