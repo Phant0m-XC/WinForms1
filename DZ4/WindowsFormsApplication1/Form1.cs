@@ -24,6 +24,46 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             this.Text = "NotePad";
             fontDialog1.ShowColor = true;
+            richTextBox1.DragEnter += RichTextBox1_DragEnter;
+            richTextBox1.DragDrop += RichTextBox1_DragDrop;
+            richTextBox1.AllowDrop = true;
+            richTextBox1.MouseUp += RichTextBox1_MouseUp;
+        }
+
+        private void RichTextBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point point = new Point(this.Location.X + richTextBox1.Location.X + e.Location.X,
+                        this.Location.Y + richTextBox1.Location.Y + e.Location.Y);
+                contextMenuStrip1.Show(point);
+            }
+        }
+
+        private void RichTextBox1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
+                ((e.AllowedEffect & DragDropEffects.Move) == DragDropEffects.Move))
+                e.Effect = DragDropEffects.Move;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void RichTextBox1_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop) &&
+                ((e.AllowedEffect & DragDropEffects.Move) == DragDropEffects.Move))
+            {
+                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+                for (int i = 0; i < objects.Length; i++)
+                    if (string.Compare(Path.GetExtension(objects[i]), ".txt") == 0)
+                        richTextBox1.Text += File.ReadAllText(objects[i], Encoding.Default) + "\r\n";
+                    else
+                        MessageBox.Show($"Файл {objects[i]} не является файлом .txt", "Внимание", MessageBoxButtons.OK,
+                            MessageBoxIcon.Asterisk);
+            }
+            else
+                e.Effect = DragDropEffects.None;
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -261,6 +301,31 @@ namespace WindowsFormsApplication1
         {
             if (richTextBox1.CanUndo)
                 richTextBox1.Undo();
+        }
+
+        private void toolStripMenuItemCut_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Cut();
+        }
+
+        private void toolStripMenuItemCopy_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Copy();
+        }
+
+        private void toolStripMenuItemPaste_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Paste();
+        }
+
+        private void toolStripMenuItemSelectAll_Click(object sender, EventArgs e)
+        {
+            richTextBox1.SelectAll();
+        }
+
+        private void toolStripMenuItemUndo_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Undo();
         }
     }
 }
