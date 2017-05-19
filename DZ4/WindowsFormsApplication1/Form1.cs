@@ -58,9 +58,9 @@ namespace WindowsFormsApplication1
                 for (int i = 0; i < objects.Length; i++)
                     if (string.Compare(Path.GetExtension(objects[i]), ".txt") == 0)
                         richTextBox1.Text += File.ReadAllText(objects[i], Encoding.Default) + "\r\n";
-                    else
-                        MessageBox.Show($"Файл {objects[i]} не является файлом .txt", "Внимание", MessageBoxButtons.OK,
-                            MessageBoxIcon.Asterisk);
+                    //else
+                        //MessageBox.Show($"Файл {objects[i]} не является файлом .txt", "Внимание", MessageBoxButtons.OK,
+                            //MessageBoxIcon.Asterisk);
             }
             else
                 e.Effect = DragDropEffects.None;

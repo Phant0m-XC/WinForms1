@@ -25,7 +25,9 @@ namespace Exam
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Attributes> Attributes { get; set; }
         public virtual DbSet<Manufacturer> Manufacturer { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Set> Set { get; set; }
     }
 }

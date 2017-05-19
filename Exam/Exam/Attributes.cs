@@ -12,20 +12,17 @@ namespace Exam
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Attributes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Attributes()
         {
             this.Set = new HashSet<Set>();
         }
     
-        public int IdProduct { get; set; }
+        public int IdAttribute { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
-        public int IdManufacturer { get; set; }
     
-        public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Set> Set { get; set; }
     }

@@ -66,7 +66,7 @@ namespace WindowsFormsApplication2
                 FileInfo info = new FileInfo(((string)clickedItem.Tag).ToString());
                 if (File.Exists(((string)clickedItem.Tag).ToString()))
                 {
-                    toolStripStatusLabel4.Text = string.Format($"{Path.GetExtension(((string)clickedItem.Tag).ToString())} - файл");
+                    //toolStripStatusLabel4.Text = string.Format($"{Path.GetExtension(((string)clickedItem.Tag).ToString())} - файл");
                     
                     toolStripStatusLabel6.Text = info.Length.ToString();
                 }
@@ -392,9 +392,9 @@ namespace WindowsFormsApplication2
                 {
                     if (File.Exists(Path.Combine(info.FullName, Path.GetFileName(subDir[i]))))
                     {
-                        result = MessageBox.Show($"{Path.Combine(info.FullName, Path.GetFileName(subDir[i]))} существует\nПерезаписать?",
-                            "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                        if (result == DialogResult.Yes)
+                        //result = MessageBox.Show($"{Path.Combine(info.FullName, Path.GetFileName(subDir[i]))} существует\nПерезаписать?",
+                            //"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                        if (true/*result == DialogResult.Yes*/)
                             File.Copy(subDir[i], Path.Combine(info.FullName, Path.GetFileName(subDir[i])), true);
                         else if (result == DialogResult.No)
                             File.Copy(subDir[i], Path.Combine(info.FullName, Path.GetFileName(subDir[i])), false);

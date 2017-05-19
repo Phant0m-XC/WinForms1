@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'K:\MyProjects\GitRepo\WinForms\WinForms1\Exam\Exam\ProductListModel.edmx'. 
+﻿// T4 code generation is enabled for model 'K:\MyProjects\GitRepo\WinForms\WinForms1\Exam\Exam\ProductListEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

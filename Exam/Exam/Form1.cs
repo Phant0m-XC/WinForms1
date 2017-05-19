@@ -33,13 +33,14 @@ namespace Exam
         private void ListView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             DialogResult result;
-            string[] str = new string[3];
+            string[] str = new string[4];
             using(ProductListEntities db = new ProductListEntities())
             {
-                var list = db.Product.Find(listView1.SelectedItems[0].Tag);
-                str[0] = list.Name;
-                str[1] = list.Price.ToString();
-                str[2] = list.Manufacturer.Name.ToString();
+                var product = db.Product.Find(listView1.SelectedItems[0].Tag);
+                str[0] = product.Name;
+                str[1] = product.Price.ToString();
+                str[2] = product.Manufacturer.Name.ToString();
+                str[3] = ((int)listView1.SelectedItems[0].Tag).ToString();
             }
             Form2 form2 = new Form2(str);
             result = form2.ShowDialog();
@@ -47,15 +48,15 @@ namespace Exam
             {
                 using (ProductListEntities db = new ProductListEntities())
                 {
-                    var list = db.Product.Find(listView1.SelectedItems[0].Tag);
-                    list.Name = str[0];
-                    list.Price = Convert.ToInt32(str[1]);
-                    list.Manufacturer.Name = str[2];
+                    var product = db.Product.Find(listView1.SelectedItems[0].Tag);
+                    product.Name = str[0];
+                    product.Price = Convert.ToInt32(str[1]);
+                    product.Manufacturer.Name = str[2];
                     db.SaveChanges();
                     listView1.Items.Clear();
                     int index = 0;
-                    var list2 = db.Product.ToList();
-                    foreach (var element in list2)
+                    var list = db.Product.ToList();
+                    foreach (var element in list)
                     {
                         listView1.Items.Add(new ListViewItem(element.Name));
                         listView1.Items[index].Tag = element.IdProduct;
@@ -63,6 +64,12 @@ namespace Exam
                     }
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.ShowDialog();
         }
     }
 }
